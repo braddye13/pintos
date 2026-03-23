@@ -18,12 +18,13 @@ void sema_up (struct semaphore *);
 void sema_self_test (void);
 
 /** Lock. */
-struct lock 
+struct lock
   {
-    struct thread *holder;      /**< Thread holding lock (for debugging). */
-    struct semaphore semaphore; /**< Binary semaphore controlling access. */
-  };
+    struct thread *holder;              /**< Thread holding lock (for debugging). */
+    struct semaphore semaphore;         /**< Binary semaphore controlling access. */
 
+    struct list_elem elem;              
+  };
 void lock_init (struct lock *);
 void lock_acquire (struct lock *);
 bool lock_try_acquire (struct lock *);
@@ -49,3 +50,4 @@ void cond_broadcast (struct condition *, struct lock *);
 #define barrier() asm volatile ("" : : : "memory")
 
 #endif /**< threads/synch.h */
+
